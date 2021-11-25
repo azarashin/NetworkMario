@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 7807773993909809041}
-  _speed: 1
+  _animSpeed: 1
+  _moveSpeed: 1
 --- !u!50 &6920344503533067636
 Rigidbody2D:
   serializedVersion: 4
@@ -140,7 +141,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5619233202664160581
 BoxCollider2D:
   m_ObjectHideFlags: 0
