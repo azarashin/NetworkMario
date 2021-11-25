@@ -31,7 +31,7 @@ public class TreasureBox : MonoBehaviour
 
     void OpenBox()
     {
-        Instantiate(_prefabCoin);
+        Instantiate(_prefabCoin, transform.position, Quaternion.identity);
         Destroy(gameObject); 
     }
 }
