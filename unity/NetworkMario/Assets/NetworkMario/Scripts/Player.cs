@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     float _moveSpeed = 15.0f;
 
+    [SerializeField]
+    float _jumpImpulse = 10.0f;
+
     Rigidbody2D _rigidBody; 
 
     // Start is called before the first frame update
@@ -30,14 +33,20 @@ public class Player : MonoBehaviour
             _animator.speed = _animSpeed;
             _animator.SetFloat("dir", -1.0f);
             _rigidBody.AddForce(Vector2.left * _moveSpeed, ForceMode2D.Force);
-        } else if (Input.GetKey(KeyCode.D))
+        }
+        else if (Input.GetKey(KeyCode.D))
         {
             _animator.speed = _animSpeed;
             _animator.SetFloat("dir", 1.0f);
             _rigidBody.AddForce(Vector2.right * _moveSpeed, ForceMode2D.Force);
         }
-        else {
+        else
+        {
             _animator.speed = 0.0f;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            _rigidBody.AddForce(Vector2.up * _jumpImpulse, ForceMode2D.Impulse);
         }
     }
 }
