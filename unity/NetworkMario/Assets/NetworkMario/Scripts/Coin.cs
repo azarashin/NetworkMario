@@ -5,6 +5,9 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     [SerializeField]
+    AudioSource _sound; 
+
+    [SerializeField]
     float _speed = 1.0f;
 
     [SerializeField]
