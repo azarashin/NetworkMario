@@ -10,4 +10,4 @@
 
 | 概要 | URL |
 | ---| --- |
-| スプライトの作成 | https://miyagame.net/sprite/ |
+| スプライトの作成 | https://qiita.com/ELIXIR/items/e58fa48680e0ebbde0ea |
