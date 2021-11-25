@@ -8,7 +8,10 @@ public class TreasureBox : MonoBehaviour
     GameObject _prefabCoin; 
 
     [SerializeField]
-    bool _debugTrigger = false; 
+    bool _debugTrigger = false;
+
+    [SerializeField]
+    float _speedToBreak = 0.5f; 
 
     SpriteRenderer _renderer; 
 
@@ -33,5 +36,14 @@ public class TreasureBox : MonoBehaviour
     {
         Instantiate(_prefabCoin, transform.position, Quaternion.identity);
         Destroy(gameObject); 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Rigidbody2D rigid_body = other.GetComponent<Rigidbody2D>();
+        if(rigid_body && rigid_body.velocity.y < -_speedToBreak)
+        {
+            OpenBox(); 
+        }
     }
 }
