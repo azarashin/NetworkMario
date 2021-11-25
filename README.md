@@ -5,6 +5,7 @@
 | URL | ライセンス |
 | ---| --- |
 | https://hsp.tv/make/tamane2d.html | 修正BSDライセンス |
+https://maou.audio/category/se/se-8bit/page/3/ | 魔王魂フリーサウンド |
 
 ## 参考ページ
 
