@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     float _jumpImpulse = 10.0f;
 
+    [SerializeField]
+    AudioSource _jumpSound; 
+
     Rigidbody2D _rigidBody;
     CapsuleCollider2D _collider; 
 
@@ -49,6 +52,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && IsOnFloor())
         {
             _rigidBody.AddForce(Vector2.up * _jumpImpulse, ForceMode2D.Impulse);
+            _jumpSound.Play(); 
         }
     }
 
