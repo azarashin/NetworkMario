@@ -9,10 +9,18 @@ public class PhotonController : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject _panel; 
 
+    [SerializeField]
+    GameObject _connectedToMaster;
+
+    [SerializeField]
+    GameObject _joinedRoom;
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("PhotonController.Start");
+        _connectedToMaster.SetActive(false);
+        _joinedRoom.SetActive(false); 
 
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
@@ -22,6 +30,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("PhotonController.OnConnectedToMaster");
+        _connectedToMaster.SetActive(true); 
 
         // "Room"という名前のルームに参加する（ルームが存在しなければ作成して参加する）
         PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
@@ -31,6 +40,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("PhotonController.OnJoinedRoom");
+        _joinedRoom.SetActive(true);
 
     }
 
