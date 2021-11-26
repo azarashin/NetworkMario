@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PhotonController : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    GameObject _panel; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,11 @@ public class PhotonController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PhotonController.OnJoinedRoom");
 
+    }
+
+    public void OnStartGame()
+    {
+        _panel.SetActive(false); 
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);

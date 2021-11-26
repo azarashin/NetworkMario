@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5142534034485827601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2424044839862233715}
+        m_TargetAssemblyTypeName: PhotonController, Assembly-CSharp
+        m_MethodName: OnStartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5421163446522166472
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6395e7dfef0584e4d8ac9cbbda9c5411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _panel: {fileID: 7214885179064699745}
 --- !u!1 &8755915600034417601
 GameObject:
   m_ObjectHideFlags: 0
