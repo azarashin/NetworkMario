@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhotonController : MonoBehaviourPunCallbacks
 {
@@ -15,6 +16,9 @@ public class PhotonController : MonoBehaviourPunCallbacks
     [SerializeField]
     GameObject _joinedRoom;
 
+    [SerializeField]
+    Text _info; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +29,29 @@ public class PhotonController : MonoBehaviourPunCallbacks
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
     }
+
+    void Update()
+    {
+        string info = "";
+        info += RoomInfo();
+
+        _info.text = info; 
+    }
+
+    string RoomInfo()
+    {
+        string info = "";
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            info += $"PhotonNetwork.CurrentRoom.PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}\n";
+        }
+        else
+        {
+            info += $"Your are not in any room...\n";
+        }
+        return info; 
+    }
+
 
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnConnectedToMaster()

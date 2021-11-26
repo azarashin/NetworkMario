@@ -486,6 +486,7 @@ MonoBehaviour:
   _panel: {fileID: 7214885179064699745}
   _connectedToMaster: {fileID: 8729078297265841944}
   _joinedRoom: {fileID: 6998551242891699716}
+  _info: {fileID: 5687642211832488106}
 --- !u!1 &8729078297265841944
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +578,7 @@ GameObject:
   - component: {fileID: 2297388675913790122}
   - component: {fileID: 5687642211832488106}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
