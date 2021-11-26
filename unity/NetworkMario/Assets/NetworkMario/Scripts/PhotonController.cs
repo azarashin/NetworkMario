@@ -17,7 +17,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
     GameObject _joinedRoom;
 
     [SerializeField]
-    Text _info; 
+    Text _info;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +44,10 @@ public class PhotonController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom != null)
         {
             info += $"PhotonNetwork.CurrentRoom.PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}\n";
+            foreach(var player in PhotonNetwork.PlayerList)
+            {
+                info += $"  id: {player.ActorNumber}, name: {player.NickName}\n"; 
+            }
         }
         else
         {
