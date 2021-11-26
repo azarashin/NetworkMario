@@ -38,27 +38,40 @@ public class Player : MonoBehaviour
     {
         if(_photonView.IsMine)
         {
-            UpdateInput(); 
+            UpdateInput();
         }
+        UpdateAnimation();
+    }
+
+    void UpdateAnimation()
+    {
+        float threthold_velocity = 0.1f; 
+        if(_rigidBody.velocity.x > threthold_velocity)
+        {
+            _animator.speed = _animSpeed;
+            _animator.SetFloat("dir", 1.0f);
+        }
+        else if (_rigidBody.velocity.x < -threthold_velocity)
+        {
+            _animator.speed = _animSpeed;
+            _animator.SetFloat("dir", -1.0f);
+        }
+        else
+        {
+            _animator.speed = 0.0f;
+        }
+
     }
 
     void UpdateInput()
     {
         if (Input.GetKey(KeyCode.A))
         {
-            _animator.speed = _animSpeed;
-            _animator.SetFloat("dir", -1.0f);
             _rigidBody.AddForce(Vector2.left * _moveSpeed, ForceMode2D.Force);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            _animator.speed = _animSpeed;
-            _animator.SetFloat("dir", 1.0f);
             _rigidBody.AddForce(Vector2.right * _moveSpeed, ForceMode2D.Force);
-        }
-        else
-        {
-            _animator.speed = 0.0f;
         }
         if (Input.GetKey(KeyCode.W) && IsOnFloor())
         {
