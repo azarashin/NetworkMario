@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,8 @@ public class Player : MonoBehaviour
     AudioSource _jumpSound; 
 
     Rigidbody2D _rigidBody;
-    CapsuleCollider2D _collider; 
+    CapsuleCollider2D _collider;
+    PhotonView _photonView; 
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +30,21 @@ public class Player : MonoBehaviour
         _animator.speed = 0.0f;
         _rigidBody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CapsuleCollider2D>(); 
+        _photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.A))
+        if(_photonView.IsMine)
+        {
+            UpdateInput(); 
+        }
+    }
+
+    void UpdateInput()
+    {
+        if (Input.GetKey(KeyCode.A))
         {
             _animator.speed = _animSpeed;
             _animator.SetFloat("dir", -1.0f);
@@ -52,7 +63,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.W) && IsOnFloor())
         {
             _rigidBody.AddForce(Vector2.up * _jumpImpulse, ForceMode2D.Impulse);
-            _jumpSound.Play(); 
+            _jumpSound.Play();
         }
     }
 
