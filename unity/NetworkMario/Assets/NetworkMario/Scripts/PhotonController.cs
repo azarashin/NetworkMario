@@ -19,6 +19,8 @@ public class PhotonController : MonoBehaviourPunCallbacks
     [SerializeField]
     Text _info;
 
+    GameObject[] _spawnPoints;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,9 @@ public class PhotonController : MonoBehaviourPunCallbacks
 
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
+
+        _spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+        Debug.Log($"PhotonCOntroller.Start: number of spawns={_spawnPoints.Length}");
     }
 
     void Update()
@@ -77,9 +82,30 @@ public class PhotonController : MonoBehaviourPunCallbacks
 
     public void OnStartGame()
     {
-        _panel.SetActive(false); 
-        // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
-        var position = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        GetComponent<PhotonView>().RPC(nameof(RpcRequestStartGameToMasterClient), RpcTarget.MasterClient);
+    }
+
+    [PunRPC]
+    private void RpcRequestStartGameToMasterClient()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            int id = 0;
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                GetComponent<PhotonView>().RPC(nameof(RpcStartGame), RpcTarget.All, player.ActorNumber, _spawnPoints[id].transform.position);
+                id = (id + 1) % _spawnPoints.Length;
+            }
+        }
+    }
+
+    [PunRPC]
+    private void RpcStartGame(int id, Vector3 pos)
+    {
+        _panel.SetActive(false);
+        if(id == PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            PhotonNetwork.Instantiate("Player", pos, Quaternion.identity);
+        }
     }
 }
