@@ -24,3 +24,9 @@ https://maou.audio/category/se/se-8bit/page/3/ | 魔王魂フリーサウンド 
 
 1. https://dashboard.photonengine.com/ja-JP/ で新しくPhoton Realtime のアプリを作成する。ここでできたアプリケーションIDを控えておく。
 2. Windows -> Photon Unity Networking -> PUN Wizard と選択し、アプリケーションIDを入力してSetup Project を選択。
+
+上記を実行した時の情報は
+
+Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset 
+
+に記録されている。
