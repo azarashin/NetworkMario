@@ -18,3 +18,9 @@ https://maou.audio/category/se/se-8bit/page/3/ | 魔王魂フリーサウンド 
 | 概要 | URL |
 | ---| --- |
 | スプライトの作成 | https://qiita.com/ELIXIR/items/e58fa48680e0ebbde0ea |
+| PUN2 | https://zenn.dev/o8que/books/bdcb9af27bdd7d/viewer/e3765a |
+
+## Photon でやること
+
+1. https://dashboard.photonengine.com/ja-JP/ で新しくPhoton Realtime のアプリを作成する。ここでできたアプリケーションIDを控えておく。
+2. Windows -> Photon Unity Networking -> PUN Wizard と選択し、アプリケーションIDを入力してSetup Project を選択。
