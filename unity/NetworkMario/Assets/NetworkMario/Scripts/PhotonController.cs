@@ -91,6 +91,19 @@ public class PhotonController : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(id, roomOptions, TypedLobby.Default);
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Debug.Log($"PhotonController.JoinRoom");
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        _connectedToMaster.SetActive(true);
+        _joinedRoom.SetActive(false);
+    }
+
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.LogErrorFormat("Join Random Failed with error code {0} and error message {1}", returnCode, message);
