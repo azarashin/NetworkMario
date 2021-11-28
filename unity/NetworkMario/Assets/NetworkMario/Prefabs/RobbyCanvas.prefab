@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 3432621929439162329}
   - component: {fileID: 2424044839862233715}
   - component: {fileID: 8913215790953721791}
+  - component: {fileID: 555260729846981926}
   m_Layer: 5
   m_Name: RobbyCanvas
   m_TagString: Untagged
@@ -487,6 +488,7 @@ MonoBehaviour:
   _panel: {fileID: 7214885179064699745}
   _connectedToMaster: {fileID: 8729078297265841944}
   _joinedRoom: {fileID: 6998551242891699716}
+  _roomManager: {fileID: 555260729846981926}
   _info: {fileID: 5687642211832488106}
 --- !u!114 &8913215790953721791
 MonoBehaviour:
@@ -500,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
+  ObservedComponentsFoldoutOpen: 0
   Group: 0
   prefixField: -1
   Synchronization: 3
@@ -510,6 +512,18 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &555260729846981926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8709399005379322660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c030f1d2d2c86144d9396b3b9386f1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8729078297265841944
 GameObject:
   m_ObjectHideFlags: 0
