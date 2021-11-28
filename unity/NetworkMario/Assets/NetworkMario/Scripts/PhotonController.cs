@@ -70,11 +70,31 @@ public class PhotonController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PhotonController.OnConnectedToMaster");
         _connectedToMaster.SetActive(true);
+    }
+
+    public void JoinRandomRoom(int max)
+    {
+        Debug.Log($"PhotonController.JoinRandomRoom{max}");
 
         byte mapCode = 0x00;
-        byte expectedMaxPlayers = 0x04;
+        byte expectedMaxPlayers = (byte)max;
         Hashtable expectedCustomRoomProperties = new Hashtable { { MAP_PROP_KEY, mapCode } };
-        PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, expectedMaxPlayers);
+        PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties, expectedMaxPlayers);
+    }
+
+    public void JoinRoom(string id)
+    {
+        Debug.Log($"PhotonController.JoinRoom{id}");
+
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.IsVisible = false;
+        PhotonNetwork.JoinOrCreateRoom(id, roomOptions, TypedLobby.Default);
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.LogErrorFormat("Join Random Failed with error code {0} and error message {1}", returnCode, message);
+        // here usually you create a new room
     }
 
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック
