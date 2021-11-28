@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonController : MonoBehaviourPunCallbacks
 {
@@ -20,6 +21,8 @@ public class PhotonController : MonoBehaviourPunCallbacks
     Text _info;
 
     GameObject[] _spawnPoints;
+
+    public const string MAP_PROP_KEY = "map";
 
     // Start is called before the first frame update
     void Start()
@@ -66,10 +69,12 @@ public class PhotonController : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("PhotonController.OnConnectedToMaster");
-        _connectedToMaster.SetActive(true); 
+        _connectedToMaster.SetActive(true);
 
-        // "Room"という名前のルームに参加する（ルームが存在しなければ作成して参加する）
-        PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
+        byte mapCode = 0x00;
+        byte expectedMaxPlayers = 0x04;
+        Hashtable expectedCustomRoomProperties = new Hashtable { { MAP_PROP_KEY, mapCode } };
+        PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, expectedMaxPlayers);
     }
 
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック
