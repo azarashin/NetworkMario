@@ -17,6 +17,9 @@ public class PhotonController : MonoBehaviourPunCallbacks
     GameObject _joinedRoom;
 
     [SerializeField]
+    RoomManager _roomManager; 
+
+    [SerializeField]
     Text _info;
 
     GameObject[] _spawnPoints;
@@ -26,7 +29,9 @@ public class PhotonController : MonoBehaviourPunCallbacks
     {
         Debug.Log("PhotonController.Start");
         _connectedToMaster.SetActive(false);
-        _joinedRoom.SetActive(false); 
+        _joinedRoom.SetActive(false);
+
+        PhotonNetwork.LocalPlayer.NickName = ((int)Random.Range(0, 100)).ToString();
 
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
@@ -58,23 +63,42 @@ public class PhotonController : MonoBehaviourPunCallbacks
         {
             info += $"Your are not in any room...\n";
         }
+        RoomList roomList = _roomManager.GetRoomList();
+        info += "RoomList:\n"; 
+        foreach(RoomInfo room in roomList)
+        {
+            info += $"{room.ToStringFull()}\n";
+        }
         return info; 
     }
-
 
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnConnectedToMaster()
     {
+        base.OnConnectedToMaster(); 
         Debug.Log("PhotonController.OnConnectedToMaster");
-        _connectedToMaster.SetActive(true); 
+        _connectedToMaster.SetActive(true);
 
-        // "Room"という名前のルームに参加する（ルームが存在しなければ作成して参加する）
-        PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions(), TypedLobby.Default);
+        PhotonNetwork.JoinLobby();
     }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        Debug.Log("PhotonController.OnJoinedLobby");
+
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = (byte)6;
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
+        PhotonNetwork.JoinOrCreateRoom("Room", roomOptions, TypedLobby.Default);
+    }
+
 
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnJoinedRoom()
     {
+        base.OnJoinedRoom();
         Debug.Log("PhotonController.OnJoinedRoom");
         _joinedRoom.SetActive(true);
 
@@ -82,13 +106,15 @@ public class PhotonController : MonoBehaviourPunCallbacks
 
     public void OnStartGame()
     {
+        Debug.Log("PhotonController.OnStartGame");
         GetComponent<PhotonView>().RPC(nameof(RpcRequestStartGameToMasterClient), RpcTarget.MasterClient);
     }
 
     [PunRPC]
     private void RpcRequestStartGameToMasterClient()
     {
-        if(PhotonNetwork.IsMasterClient)
+        Debug.Log("PhotonController.RpcRequestStartGameToMasterClient");
+        if (PhotonNetwork.IsMasterClient)
         {
             int id = 0;
             foreach (var player in PhotonNetwork.PlayerList)
@@ -102,6 +128,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RpcStartGame(int id, Vector3 pos)
     {
+        Debug.Log("PhotonController.RpcStartGame");
         _panel.SetActive(false);
         if(id == PhotonNetwork.LocalPlayer.ActorNumber)
         {
