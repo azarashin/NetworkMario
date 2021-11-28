@@ -82,12 +82,13 @@ public class PhotonController : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties, expectedMaxPlayers);
     }
 
-    public void JoinRoom(string id)
+    public void JoinRoomMax2(string id)
     {
         Debug.Log($"PhotonController.JoinRoom{id}");
 
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = false;
+        roomOptions.MaxPlayers = 2; 
         PhotonNetwork.JoinOrCreateRoom(id, roomOptions, TypedLobby.Default);
     }
 

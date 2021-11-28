@@ -202,7 +202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2424044839862233715}
         m_TargetAssemblyTypeName: PhotonController, Assembly-CSharp
-        m_MethodName: JoinRoom
+        m_MethodName: JoinRoomMax2
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1183,7 +1183,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2424044839862233715}
         m_TargetAssemblyTypeName: PhotonController, Assembly-CSharp
-        m_MethodName: JoinRoom
+        m_MethodName: JoinRoomMax2
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
