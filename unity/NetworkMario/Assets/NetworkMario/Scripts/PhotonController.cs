@@ -51,7 +51,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
         string info = "";
         if (PhotonNetwork.CurrentRoom != null)
         {
-            info += $"PhotonNetwork.CurrentRoom.PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}\n";
+            info += $"PhotonNetwork.CurrentRoom.PlayerCount: {PhotonNetwork.CurrentRoom.Name}({PhotonNetwork.CurrentRoom.PlayerCount})\n";
             foreach(var player in PhotonNetwork.PlayerList)
             {
                 info += $"  id: {player.ActorNumber}, name: {player.NickName}\n"; 
