@@ -27,6 +27,6 @@ https://maou.audio/category/se/se-8bit/page/3/ | 魔王魂フリーサウンド 
 
 上記を実行した時の情報は
 
-Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset 
+Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
 
 に記録されている。
