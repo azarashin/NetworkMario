@@ -1060,7 +1060,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Joined Room
+  m_Text: Connected To Master Server / Joined Room
 --- !u!1 &7214885179064699745
 GameObject:
   m_ObjectHideFlags: 0

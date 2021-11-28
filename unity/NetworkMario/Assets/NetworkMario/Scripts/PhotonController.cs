@@ -101,6 +101,7 @@ public class PhotonController : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("PhotonController.OnJoinedRoom");
+        _connectedToMaster.SetActive(false);
         _joinedRoom.SetActive(true);
 
     }
