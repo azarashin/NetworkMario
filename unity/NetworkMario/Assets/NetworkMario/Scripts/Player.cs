@@ -1,9 +1,9 @@
-using Photon.Pun;
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [SerializeField]
     Animator _animator;
@@ -22,24 +22,27 @@ public class Player : MonoBehaviour
 
     Rigidbody2D _rigidBody;
     CapsuleCollider2D _collider;
-    PhotonView _photonView; 
+
+    private void Awake()
+    {
+        _rigidBody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<CapsuleCollider2D>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         _animator.speed = 0.0f;
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<CapsuleCollider2D>(); 
-        _photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public override void FixedUpdateNetwork()
     {
-        if(_photonView.IsMine)
+        if (GetInput(out PhotonController.NetworkInputData data))
         {
-            UpdateInput();
+            UpdateInput(data);
         }
+
         UpdateAnimation();
     }
 
@@ -63,24 +66,27 @@ public class Player : MonoBehaviour
 
     }
 
-    void UpdateInput()
+    void UpdateInput(PhotonController.NetworkInputData data)
     {
-        if (Input.GetKey(KeyCode.A))
+        _rigidBody.AddForce(data.Force, ForceMode2D.Force);
+        _rigidBody.AddForce(data.Impulse, ForceMode2D.Impulse);
+        if(data.TriggerJump)
         {
-            _rigidBody.AddForce(Vector2.left * _moveSpeed, ForceMode2D.Force);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            _rigidBody.AddForce(Vector2.right * _moveSpeed, ForceMode2D.Force);
-        }
-        if (Input.GetKey(KeyCode.W) && IsOnFloor())
-        {
-            _rigidBody.AddForce(Vector2.up * _jumpImpulse, ForceMode2D.Impulse);
             _jumpSound.Play();
         }
     }
 
-    bool IsOnFloor()
+    public float MoveSpeed()
+    {
+        return _moveSpeed; 
+    }
+
+    public float JumpImpulse()
+    {
+        return _jumpImpulse; 
+    }
+
+    public bool IsOnFloor()
     {
         int block_layer = 6;
         int mask = 1 << block_layer; 
