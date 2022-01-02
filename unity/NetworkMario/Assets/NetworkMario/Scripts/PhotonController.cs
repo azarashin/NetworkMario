@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PhotonController : MonoBehaviour, INetworkRunnerCallbacks
+public class PhotonController : Fusion.Behaviour, INetworkRunnerCallbacks
 {
     public struct NetworkInputData : INetworkInput
     {
